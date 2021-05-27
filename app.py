@@ -20,7 +20,10 @@ def hello_world():
     if request.method == 'POST':
 
         file_body = request.files['file_name']
-        file_name = "file-id-1"
+        count_obj = 0
+        for i in s3.Bucket(custombucket).objects.all():
+            count_obj = count_obj + 1
+        file_name = "file-id-" + str(count_obj)
         s3 = boto3.resource('s3')
 
         try:
@@ -37,15 +40,6 @@ def hello_world():
                 s3_location,
                 custombucket,
                 file_name)
-
-            try:
-                cursor = db_conn.cursor()
-                insert_sql = "INSERT INTO intellipaat VALUES (%s, %s)"
-                cursor.execute(insert_sql, (file_name, object_url))
-                db_conn.commit()
-
-            except Exception as e:
-                return str(e)
 
         except Exception as e:
             return str(e)
