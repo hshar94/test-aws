@@ -38,14 +38,14 @@ def hello_world():
                 custombucket,
                 file_name)
 
-                try:
-                    cursor = db_conn.cursor()
-                    insert_sql = "INSERT INTO intellipaat VALUES (%s, %s)"
-                    cursor.execute(insert_sql, file_name, object_url)
-                    db_conn.commit()
+            try:
+                cursor = db_conn.cursor()
+                insert_sql = "INSERT INTO intellipaat VALUES (%s, %s)"
+                cursor.execute(insert_sql, file_name, object_url)
+                db_conn.commit()
 
-                except Exception as e:
-                    return str(e)
+            except Exception as e:
+                return str(e)
 
         except Exception as e:
             return str(e)

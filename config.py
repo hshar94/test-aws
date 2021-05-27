@@ -1,6 +1,6 @@
 custombucket = "destinationtxt"
 table = "intellipaat"
-databasehost = ""
+databasehost = "database-1.cyro8arsnhbc.us-east-2.rds.amazonaws.com"
 duser = "intel"
 dpass = "intel123"
 s3database = "intellipaat"
