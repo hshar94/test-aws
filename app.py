@@ -58,9 +58,9 @@ def hello_world():
 @app.route("/check", methods=['GET', 'POST'])
 def hello():
     try:
-    statuscode = urllib.request.urlopen(kapp).getcode()
-    if statuscode == 200:
-        return render_template("<h1>Cluster is up!</h1>")
+        statuscode = urllib.request.urlopen(kapp).getcode()
+        if statuscode == 200:
+            return render_template("<h1>Cluster is up!</h1>")
     except Exception as e:
         return render_template("<h1>Cluster is not up!</h1>")
 
