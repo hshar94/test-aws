@@ -1,1 +1,1 @@
-custombucket="hello"
+custombucket="destinationtxt"
