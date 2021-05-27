@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request
 import boto3
 from pymysql import connections
+import urllib.request
 from config import *
 app = Flask(__name__)
 db_conn = connections.Connection(
