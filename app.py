@@ -18,13 +18,12 @@ db_conn = connections.Connection(
 @app.route("/", methods=['GET', 'POST'])
 def hello_world():
     if request.method == 'POST':
-
+        s3 = boto3.resource('s3')
         file_body = request.files['file_name']
         count_obj = 0
         for i in s3.Bucket(custombucket).objects.all():
             count_obj = count_obj + 1
         file_name = "file-id-" + str(count_obj)
-        s3 = boto3.resource('s3')
 
         try:
             s3.Bucket(custombucket).put_object(Key=file_name, Body=file_body)
