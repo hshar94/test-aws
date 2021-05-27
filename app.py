@@ -2,8 +2,17 @@ from flask import Flask
 from flask import render_template
 from flask import request
 import boto3
+from pymysql import connections
 from config import *
 app = Flask(__name__)
+db_conn = connections.Connection(
+    host=databasehost,
+    port=3306,
+    user=duser,
+    password=dpass,
+    db=s3database
+
+)
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -28,6 +37,15 @@ def hello_world():
                 s3_location,
                 custombucket,
                 file_name)
+
+                try:
+                    cursor = db_conn.cursor()
+                    insert_sql = "INSERT INTO intellipaat VALUES (%s, %s)"
+                    cursor.execute(insert_sql, file_name, object_url)
+                    db_conn.commit()
+
+                except Exception as e:
+                    return str(e)
 
         except Exception as e:
             return str(e)

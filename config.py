@@ -1,1 +1,6 @@
-custombucket="destinationtxt"
+custombucket = "destinationtxt"
+table = "intellipaat"
+databasehost = ""
+duser = "intel"
+dpass = "intel123"
+s3database = "intellipaat"
