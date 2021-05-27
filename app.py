@@ -23,7 +23,7 @@ def hello_world():
         count_obj = 0
         for i in s3.Bucket(custombucket).objects.all():
             count_obj = count_obj + 1
-        file_name = "file-id-" + str(count_obj)
+        file_name = "file-id-" + str(count_obj + 1)
 
         try:
             s3.Bucket(custombucket).put_object(Key=file_name, Body=file_body)
