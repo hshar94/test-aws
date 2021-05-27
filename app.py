@@ -1,0 +1,44 @@
+from flask import Flask
+from flask import render_template
+from flask import request
+import boto3
+from config import *
+app = Flask(__name__)
+
+
+@app.route("/", methods=['GET', 'POST'])
+def hello_world():
+    if request.method == 'POST':
+
+        file_body = request.files['file_name']
+        file_name = "file-id-1"
+        s3 = boto3.resource('s3')
+
+        try:
+            s3.Bucket(custombucket).put_object(Key=file_name, Body=file_body)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                file_name)
+
+        except Exception as e:
+            return str(e)
+    print("Uploading to S3 success... ")
+    return render_template("index.html")
+
+
+@app.route("/hello", methods=['GET', 'POST'])
+def hello():
+    return custombucket
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80, debug=True)
